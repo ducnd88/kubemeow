@@ -1,0 +1,6 @@
+---
+
+- name: Create VMs for cluster
+  hosts: masters, workers
+  roles:
+    - roles/create_coreos

@@ -1,0 +1,10 @@
+---
+
+fcos_image: fedora-coreos-39.20231119.3.0-qemu.x86_64.qcow2
+rhel_image: rhel-8.8-qemu.x86_64.qcow2
+
+hostname: "{{ inventory_hostname }}"
+cpu: "{{ hostvars[inventory_hostname].cpu }}"
+ram: "{{ hostvars[inventory_hostname].ram }}"
+disk: "{{ hostvars[inventory_hostname].disk }}"
+network: "{{ hostvars[inventory_hostname].network }}"

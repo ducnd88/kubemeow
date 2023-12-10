@@ -1,0 +1,14 @@
+infra-node:
+  ansible_host: 192.168.1.10
+  ansible_user: root
+  ansible_password: samsung
+  cpu: 1
+  ram: 1
+  disk: 1000
+  network:
+    - name: eth0
+      bridge: br-ext
+      ip: 192.168.1.10/24
+      gw: 192.168.1.1
+      defgw: yes
+      dns: 8.8.8.8

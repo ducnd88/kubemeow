@@ -1,0 +1,13 @@
+---
+
+all:
+  hosts:
+    infra-node
+  children:
+    masters:
+      hosts:
+        master1
+    workers:
+      hosts:
+        worker1
+        worker2

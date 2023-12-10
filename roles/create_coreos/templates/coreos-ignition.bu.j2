@@ -1,0 +1,56 @@
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: core
+      password_hash: $y$j9T$6.xkhzTmuvakHtKKB/oKY1$CXloRdq6st.ayFmRWK1A5qosjIYxDy6CaEjk2tiZQS0
+      groups:
+        - wheel
+        - sudo
+storage:
+  files:
+    # Set Hostname
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: node1.platform
+    # Set Domain
+    - path: /etc/hosts
+      overwrite: true
+      contents:
+        inline: |
+          127.0.0.1       localhost             localhost4
+          ::1             localhost             localhost6
+          192.168.1.200   node1.platform        node1
+    # Set Network (ens2)
+    - path: /etc/NetworkManager/system-connections/ens2.nmconnection
+      mode: 0600
+      contents:
+        inline: |
+          [connection]
+          id=ens2
+          type=ethernet
+          interface-name=ens2
+          [ipv4]
+          address1=192.168.1.200/24,192.168.1.1
+          dns=8.8.8.8;
+          dns-search=
+          may-fail=false
+          method=manual
+    # Enable SSH Password Authentication
+    - path: /etc/ssh/sshd_config.d/20-enable-passwords.conf
+      mode: 0644
+      contents:
+        inline: PasswordAuthentication yes
+    # Let iptables see bridged trafic
+    - path: /etc/modules-load.d/k8s.conf
+      contents:
+        inline: |
+          overlay
+          br_netfilter
+    - path: /etc/sysctl.d/k8s.conf
+      contents:
+        inline: |
+          net.bridge.bridge-nf-call-iptables  = 1
+          net.bridge.bridge-nf-call-ip6tables = 1
+          net.ipv4.ip_forward                 = 1
