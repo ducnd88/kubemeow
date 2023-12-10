@@ -1,6 +1,6 @@
 ---
 
-- name: "Check if {{ hostname }}.qcow2 exists"
+- name: "Check if qcow2 image of VMs not exists"
   delegate_to: localhost
   become: true
   stat:
@@ -20,4 +20,4 @@
   delegate_to: localhost
   template:
     src: "templates/coreos-ignition.bu.j2"
-    dest: "/tmp/hostname-ignition.bu"
+    dest: "/tmp/{{ hostname }}-ignition.bu"
