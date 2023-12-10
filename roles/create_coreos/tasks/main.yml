@@ -6,7 +6,7 @@
   stat:
     path: "/var/lib/libvirt/images/{{ hostname }}.qcow2"
   register: host_image_stat
-  failed_when: host_image_stat.stat.exists is defined
+  failed_when: host_image_stat.stat.exists
 
 - name: Check if Fedora CoreOS qcow2 image exists
   delegate_to: localhost
@@ -14,7 +14,7 @@
   stat:
     path: "/var/lib/libvirt/images/{{ fcos_image }}"
   register: fcos_image_stat
-  failed_when: fcos_image_stat.stat.exists is not defined
+  failed_when: not fcos_image_stat.stat.exists
 
 - name: Set CoreOS butane config
   delegate_to: localhost
