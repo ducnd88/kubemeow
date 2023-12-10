@@ -1,6 +1,6 @@
 ---
 
-- name: Check if {{ hostname }}.qcow2 exists
+- name: "Check if {{ hostname }}.qcow2 exists"
   delegate_to: localhost
   become: true
   stat:
